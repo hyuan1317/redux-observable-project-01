@@ -21,6 +21,8 @@ const GlobalStyle = createGlobalStyle`
 const Wrapper = styled.div`
   background-color: #121213;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 function App() {
