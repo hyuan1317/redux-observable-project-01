@@ -4,11 +4,8 @@ import WordsGrid from './WordsGrid';
 import KeyboardArea from './KeyboardArea';
 
 const Wrapper = styled.div`
-  display: flex;
   flex: auto;
-  flex-direction: column;
-  align-items: center;
-  min-height: 0;
+  margin: 0 auto;
 `;
 
 const GameArea: FC = () => {

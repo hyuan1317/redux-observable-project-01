@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   grid-template-rows: repeat(6, 1fr);
   grid-row-gap: 5px;
   padding: 10px;
-  min-height: 0;
+  margin: 0 auto;
   width: calc((100vh - 50px - 20px - 200px - 25px) * 5 / 6 + 40px);
 `;
 const TileRow = styled.div`

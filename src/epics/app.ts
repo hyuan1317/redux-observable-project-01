@@ -49,9 +49,12 @@ const guessWordEpic: Epic<ActionTypes, ActionTypes, RootState> = (
     filter(isOfType(VALIDATING_WORD)),
     filter(() => state$.value.app.currentlyGuessingLetters.length === 5),
     mergeMap(() => {
-      const hitsResult: LetterHitStatus[] = [];
       const { answer, currentlyGuessingLetters, keyboardLetterHint } =
         state$.value.app;
+
+      const hitsResult: LetterHitStatus[] = [];
+      const updatedKeyboardLetterHint = { ...keyboardLetterHint };
+
       for (let i = 0; i < 5; i += 1) {
         const letter = currentlyGuessingLetters[i];
         let letterRevealStatus: LetterHitStatus;
@@ -64,15 +67,15 @@ const guessWordEpic: Epic<ActionTypes, ActionTypes, RootState> = (
 
         switch (letterRevealStatus) {
           case 'correct':
-            keyboardLetterHint[letter] = 'correct';
+            updatedKeyboardLetterHint[letter] = 'correct';
             break;
           case 'present':
-            if (keyboardLetterHint[letter] !== 'correct')
-              keyboardLetterHint[letter] = 'present';
+            if (updatedKeyboardLetterHint[letter] !== 'correct')
+              updatedKeyboardLetterHint[letter] = 'present';
             break;
           case 'absent':
           default:
-            keyboardLetterHint[letter] = 'absent';
+            updatedKeyboardLetterHint[letter] = 'absent';
         }
       }
 
@@ -82,7 +85,7 @@ const guessWordEpic: Epic<ActionTypes, ActionTypes, RootState> = (
       };
       return [
         validatedWordSuccess(guessInfo),
-        updateKeyboardLetterHint(keyboardLetterHint),
+        updateKeyboardLetterHint(updatedKeyboardLetterHint),
       ];
     }) // to be modified
   );
